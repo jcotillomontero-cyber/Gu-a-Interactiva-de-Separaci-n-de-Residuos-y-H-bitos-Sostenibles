@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de separación de residuos | Eco-Residencia Bilingüe</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Oswald & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'celeste': '#E0F2FE',
+                        'beige': '#FEF3C7',
+                        'salmon': '#FCA5A5',
+                        'verde-suave': '#DCFCE7',
+                        'marron-bin': '#80502F',
+                        'amarillo-bin': '#F5C51B',
+                        'azul-bin': '#1689D4',
+                        'verde-bin': '#168345',
+                        'gris-bin': '#777777',
+                    },
+                    fontFamily: {
+                        'oswald': ['Oswald', 'sans-serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'comic': '4px 4px 0px 0px #000000',
+                        'comic-lg': '7px 7px 0px 0px #000000',
+                        'comic-sm': '2px 2px 0px 0px #000000',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #111827;
+        }
+
+        .border-thick {
+            border: 3.5px solid #000000;
+        }
+
+        .border-medium {
+            border: 2px solid #000000;
+        }
+
+        .speech-bubble {
+            position: relative;
+            background: #ffffff;
+            border: 3px solid #000000;
+            border-radius: 12px;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 28px;
+            border-width: 12px 12px 0;
+            border-style: solid;
+            border-color: #000000 transparent;
+            display: block;
+            width: 0;
+        }
+
+        .comic-card {
+            border: 3px solid #000000;
+            box-shadow: 5px 5px 0px 0px #000000;
+            transition: all 0.2s ease;
+        }
+
+        .comic-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 8px 8px 0px 0px #000000;
+        }
+
+        .btn-comic {
+            border: 2.5px solid #000000;
+            box-shadow: 3px 3px 0px 0px #000000;
+            font-weight: 700;
+            transition: all 0.15s ease;
+        }
+
+        .btn-comic:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px 0px #000000;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F1F1;
+            border-left: 2px solid #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #000000;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-black min-h-screen flex flex-col">
+
+    <!-- TOP HEADER / HERO SECTION -->
+    <header class="border-b-4 border-black bg-celeste px-4 py-8 md:py-10 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <!-- Badges and Language Toggle -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                <div class="flex flex-wrap gap-2 text-xs font-bold">
+                    <span class="bg-black text-white px-3 py-1.5 font-bold tracking-wider uppercase border-medium border-black font-oswald shadow-comic-sm">
+                        <i class="fa-solid fa-earth-americas mr-1"></i> Barcelona Sostenible
+                    </span>
+                    <span class="bg-white px-2.5 py-1.5 border-medium border-black rounded shadow-comic-sm"><i class="fa-solid fa-graduation-cap mr-1 text-sky-600"></i> Eco-Residencia</span>
+                    <span class="bg-beige px-2.5 py-1.5 border-medium border-black rounded shadow-comic-sm"><i class="fa-solid fa-leaf mr-1 text-emerald-600"></i> Residu Zero</span>
+                    <span class="bg-salmon px-2.5 py-1.5 border-medium border-black rounded shadow-comic-sm hidden sm:inline-block"><i class="fa-solid fa-people-roof mr-1"></i> Comunidad</span>
+                </div>
+
+                <!-- Language Selector Toggle -->
+                <div class="flex items-center bg-white border-medium border-black p-1 rounded-lg shadow-comic-sm">
+                    <button id="lang-es" onclick="setLanguage('es')" class="px-3 py-1 text-xs font-black uppercase rounded bg-black text-white transition-all">ES</button>
+                    <button id="lang-en" onclick="setLanguage('en')" class="px-3 py-1 text-xs font-black uppercase rounded text-black transition-all">EN</button>
+                </div>
+            </div>
+
+            <!-- Main Title Grid -->
+            <div class="grid md:grid-cols-12 gap-8 items-center">
+                <div class="md:col-span-8">
+                    <h1 class="font-oswald text-4xl md:text-6xl font-black uppercase tracking-tight leading-none mb-3">
+                        Guía de separación de residuos <br/>
+                        <span class="text-emerald-700 underline decoration-yellow-400 decoration-wavy decoration-2">¡De Residuo a Recurso!</span>
+                    </h1>
+                    <h2 id="hero-subtitle" class="font-oswald text-lg md:text-2xl text-gray-800 font-bold uppercase mb-4">
+                        Barcelona: Separar correctamente para recuperar materiales y reducir el impacto ambiental
+                    </h2>
+
+                    <div class="space-y-3">
+                        <p id="hero-desc-es" class="text-sm md:text-base font-medium bg-white p-4 rounded-xl border-medium border-black shadow-comic-sm">
+                            <strong>[ES]</strong> ¡Bienvenid@ a tu casa! Cada residuo debe depositarse en el lugar adecuado para facilitar su recuperación. Esta guía interactiva bilingüe te ayudará a clasificar todo lo que generas en tu día a día en la residencia.
+                        </p>
+                        <p id="hero-desc-en" class="text-sm md:text-base font-medium bg-beige p-4 rounded-xl border-medium border-black shadow-comic-sm">
+                            <strong>[EN]</strong> Welcome to your eco-residence! Sorting waste accurately helps turn everyday trash into recycled resources. Use this interactive guide to check where each item goes!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Comic Mascot Visual -->
+                <div class="md:col-span-4 flex justify-center">
+                    <div class="p-5 border-thick rounded-2xl shadow-comic text-center relative w-full max-w-xs bg-verde-suave border-black">
+                        <div class="speech-bubble p-3 mb-4 text-xs md:text-sm font-black text-left bg-white">
+                            <i class="fa-solid fa-quote-left text-salmon mr-1"></i> 
+                            <span id="mascot-speech">¡Separa en origen antes de tirar! Así garantizamos una Barcelona más limpia y sostenible.</span>
+                        </div>
+                        <div class="flex justify-center items-center py-2">
+                            <!-- SVG Eco Mascot -->
+                            <svg class="w-32 h-32 transform hover:scale-105 transition-transform" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="50" r="44" fill="#86EFAC" stroke="#000000" stroke-width="3.5"/>
+                                <!-- Eyes -->
+                                <circle cx="35" cy="40" r="6" fill="#FFFFFF" stroke="#000000" stroke-width="2.5"/>
+                                <circle cx="36" cy="40" r="2.5" fill="#000000"/>
+                                <circle cx="65" cy="40" r="6" fill="#FFFFFF" stroke="#000000" stroke-width="2.5"/>
+                                <circle cx="64" cy="40" r="2.5" fill="#000000"/>
+                                <!-- Cheeks -->
+                                <circle cx="26" cy="48" r="4" fill="#FCA5A5" opacity="0.8"/>
+                                <circle cx="74" cy="48" r="4" fill="#FCA5A5" opacity="0.8"/>
+                                <!-- Smile -->
+                                <path d="M 34 58 Q 50 74 66 58" stroke="#000000" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                                <!-- Recycle Crown Emblem -->
+                                <path d="M 50 12 L 56 22 L 44 22 Z" fill="#15803D" stroke="#000" stroke-width="1"/>
+                                <path d="M 40 20 A 12 12 0 0 1 60 20" stroke="#15803D" stroke-width="3" fill="none"/>
+                            </svg>
+                        </div>
+                        <span class="inline-block bg-black text-white text-xs font-oswald px-3 py-1.5 uppercase rounded font-bold tracking-wider mt-1">
+                            Eco-Habits Mascot
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- INTERACTIVE SEARCH BAR & QUICK LOOKUP -->
+    <div class="bg-amber-300 border-b-4 border-black py-6 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center gap-3">
+                <label for="search-input" class="font-oswald text-xl md:text-2xl font-bold uppercase whitespace-nowrap flex items-center gap-2 text-black">
+                    <i class="fa-solid fa-magnifying-glass"></i> <span id="search-label">¿Dónde tirarlo? / Where to throw it?</span>
+                </label>
+                <div class="relative w-full">
+                    <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="Escribe un residuo: ej. café, lata, brik, bombilla, medicamentos, caja, pizza, pila..." 
+                        class="w-full pl-4 pr-10 py-3.5 rounded-xl border-thick font-bold text-gray-900 placeholder-gray-600 focus:outline-none focus:ring-4 focus:ring-black shadow-comic-sm bg-white">
+                    <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 bg-black text-white rounded-full w-7 h-7 items-center justify-center text-xs font-bold hover:bg-gray-800">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Filter Chips -->
+            <div class="flex flex-wrap items-center gap-2 mt-3 text-xs font-bold">
+                <span class="text-black font-oswald uppercase"><i class="fa-solid fa-bolt mr-1"></i> Búsquedas frecuentes:</span>
+                <button onclick="quickSearch('café')" class="bg-white border-medium border-black px-2.5 py-1 rounded-lg hover:bg-black hover:text-white transition">☕ Café / Coffee</button>
+                <button onclick="quickSearch('lata')" class="bg-white border-medium border-black px-2.5 py-1 rounded-lg hover:bg-black hover:text-white transition">🥤 Lata / Can</button>
+                <button onclick="quickSearch('brik')" class="bg-white border-medium border-black px-2.5 py-1 rounded-lg hover:bg-black hover:text-white transition">🧃 Brik / Carton</button>
+                <button onclick="quickSearch('pila')" class="bg-white border-medium border-black px-2.5 py-1 rounded-lg hover:bg-black hover:text-white transition">🔋 Pilas / Batteries</button>
+                <button onclick="quickSearch('medicamento')" class="bg-white border-medium border-black px-2.5 py-1 rounded-lg hover:bg-black hover:text-white transition">💊 Medicamentos</button>
+                <button onclick="quickSearch('pizza')" class="bg-white border-medium border-black px-2.5 py-1 rounded-lg hover:bg-black hover:text-white transition">🍕 Caja de Pizza</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEARCH RESULT CONTAINER (DYNAMIC) -->
+    <div id="search-results-section" class="hidden bg-white border-b-4 border-black py-8 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-oswald text-2xl font-black uppercase text-black flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-yellow-500"></i> Resultados de búsqueda / Search Results
+                </h3>
+                <button onclick="clearSearch()" class="text-xs font-bold bg-black text-white px-3 py-1.5 rounded-lg border-medium border-black shadow-comic-sm">
+                    <i class="fa-solid fa-xmark mr-1"></i> Cerrar / Close
+                </button>
+            </div>
+            <div id="results-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Search items injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINERS -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-10 w-full space-y-14">
+
+        <!-- SECTION 1: LAS 5 FRACCIONES DE SEPARACIÓN -->
+        <section id="fracciones">
+            <div class="border-b-4 border-black pb-3 mb-8 flex flex-wrap items-end justify-between gap-3">
+                <div>
+                    <span id="badge-p1" class="text-xs font-bold uppercase tracking-widest bg-black text-white px-2.5 py-1 font-oswald border-medium border-black">Sección 01</span>
+                    <h2 id="title-fracciones" class="font-oswald text-3xl md:text-5xl font-black uppercase mt-1">Clasificación de las 5 Fracciones</h2>
+                </div>
+                <p id="sub-fracciones" class="text-sm font-bold text-gray-700 bg-beige px-3 py-1.5 rounded-lg border-medium border-black shadow-comic-sm">
+                    Contenedores ordinarios en la vía pública de Barcelona
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
+                
+                <!-- 01. MARRÓN / BROWN -->
+                <div class="comic-card bg-white rounded-xl overflow-hidden flex flex-col justify-between" style="border-top: 14px solid #80502F;">
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-oswald text-xs font-bold px-2 py-1 rounded text-white" style="background-color: #80502F;">01. MARRÓN / BROWN</span>
+                            <i class="fa-solid fa-apple-whole text-2xl" style="color: #80502F;"></i>
+                        </div>
+                        <h3 class="font-oswald text-2xl font-black uppercase mb-0.5" style="color: #80502F;">Orgánica</h3>
+                        <span class="text-xs font-bold text-gray-500 uppercase block mb-2">Organic Waste</span>
+                        <p class="text-xs text-gray-700 font-bold mb-4 italic bg-amber-50 p-1.5 rounded border border-amber-200">"Restos biodegradables / Food waste"</p>
+
+                        <div class="mb-4">
+                            <h4 class="text-xs font-bold uppercase tracking-wide bg-gray-100 p-1.5 border-medium border-black mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-check text-green-600"></i> Permitido / Accepted
+                            </h4>
+                            <ul class="text-xs font-medium space-y-1 pl-1 text-gray-800">
+                                <li>• Fruta y verdura / Fruits & veg</li>
+                                <li>• Carne y pescado / Meat & fish</li>
+                                <li>• Pan y comida / Bread & leftovers</li>
+                                <li>• Cáscaras, huesos / Shells & bones</li>
+                                <li>• Posos de café / Coffee grounds</li>
+                                <li>• Papel cocina / Kitchen paper</li>
+                                <li>• Tapones de corcho / Natural corks</li>
+                                <li>• Plantas y flores / Plants & flowers</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-3">
+                            <h4 class="text-xs font-bold uppercase tracking-wide bg-red-50 p-1.5 border-medium border-black mb-2 text-red-700 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-xmark"></i> No tirar / Avoid
+                            </h4>
+                            <ul class="text-xs text-gray-700 space-y-1 pl-1">
+                                <li>❌ Envases plástico / Plastic packaging</li>
+                                <li>❌ Botellas vidrio / Glass bottles</li>
+                                <li>❌ Polvo de barrer / Sweepings</li>
+                                <li>❌ Pañales / Nappies</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-amber-100 border-t-2 border-black text-xs font-bold text-center text-amber-900">
+                        <i class="fa-solid fa-recycle mr-1"></i> Para Compost y Biogás
+                    </div>
+                </div>
+
+                <!-- 02. AMARILLO / YELLOW -->
+                <div class="comic-card bg-white rounded-xl overflow-hidden flex flex-col justify-between" style="border-top: 14px solid #F5C51B;">
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-oswald text-xs font-bold px-2 py-1 rounded text-black" style="background-color: #F5C51B;">02. AMARILLO / YELLOW</span>
+                            <i class="fa-solid fa-bottle-water text-2xl text-yellow-600"></i>
+                        </div>
+                        <h3 class="font-oswald text-2xl font-black uppercase mb-0.5 text-yellow-700">Envases</h3>
+                        <span class="text-xs font-bold text-gray-500 uppercase block mb-2">Plastics & Cans</span>
+                        <p class="text-xs text-gray-700 font-bold mb-4 italic bg-yellow-50 p-1.5 rounded border border-yellow-200">"Plásticos, latas y briks"</p>
+
+                        <div class="mb-4">
+                            <h4 class="text-xs font-bold uppercase tracking-wide bg-gray-100 p-1.5 border-medium border-black mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-check text-green-600"></i> Permitido / Accepted
+                            </h4>
+                            <ul class="text-xs font-medium space-y-1 pl-1 text-gray-800">
+                                <li>• Botellas plástico / Plastic bottles</li>
+                                <li>• Latas refrescos / Soda cans</li>
+                                <li>• Briks (leche, zumo) / Milk cartons</li>
+                                <li>• Yogures, tarrinas / Tubs & pots</li>
+                                <li>• Tapas metal / Metal lids</li>
+                                <li>• Papel aluminio / Foil paper</li>
+                                <li>• Bolsas plástico / Plastic bags</li>
+                                <li>• Aerosoles vacíos / Empty sprays</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-3">
+                            <h4 class="text-xs font-bold uppercase tracking-wide bg-red-50 p-1.5 border-medium border-black mb-2 text-red-700 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-xmark"></i> No tirar / Avoid
+                            </h4>
+                            <ul class="text-xs text-gray-700 space-y-1 pl-1">
+                                <li>❌ Juguetes / Plastic toys</li>
+                                <li>❌ Perchas / Clothes hangers</li>
+                                <li>❌ Tupperwares viejos / Plastic tubs</li>
+                                <li>❌ CD/DVDs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-yellow-100 border-t-2 border-black text-xs font-bold text-center text-yellow-900">
+                        <i class="fa-solid fa-recycle mr-1"></i> Recuperación de plásticos
+                    </div>
+                </div>
+
+                <!-- 03. AZUL / BLUE -->
+                <div class="comic-card bg-white rounded-xl overflow-hidden flex flex-col justify-between" style="border-top: 14px solid #1689D4;">
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-oswald text-xs font-bold px-2 py-1 rounded text-white" style="background-color: #1689D4;">03. AZUL / BLUE</span>
+                            <i class="fa-solid fa-box-open text-2xl" style="color: #1689D4;"></i>
+                        </div>
+                        <h3 class="font-oswald text-2xl font-black uppercase mb-0.5" style="color: #1689D4;">Papel y Cartón</h3>
+                        <span class="text-xs font-bold text-gray-500 uppercase block mb-2">Paper & Cardboard</span>
+                        <p class="text-xs text-gray-700 font-bold mb-4 italic bg-blue-50 p-1.5 rounded border border-blue-200">"Limpio y plegado / Folded"</p>
+
+                        <div class="mb-4">
+                            <h4 class="text-xs font-bold uppercase tracking-wide bg-gray-100 p-1.5 border-medium border-black mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-check text-green-600"></i> Permitido / Accepted
+                            </h4>
+                            <ul class="text-xs font-medium space-y-1 pl-1 text-gray-800">
+                                <li>• Cajas cartón / Cardboard boxes</li>
+                                <li>• Revistas, folios / Paper, notes</li>
+                                <li>• Bolsas de papel / Paper bags</li>
+                                <li>• Periódicos / Newspapers</li>
+                                <li>• Cajas de cereales / Cereal boxes</li>
+                                <li>• Hueveras cartón / Egg cartons</li>
+                                <li>• Tubos papel / Toilet paper rolls</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-3">
+                            <h4 class="text-xs font-bold uppercase tracking-wide bg-red-50 p-1.5 border-medium border-black mb-2 text-red-700 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-xmark"></i> No tirar / Avoid
+                            </h4>
+                            <ul class="text-xs text-gray-700 space-y-1 pl-1">
+                                <li>❌ Cartón manchado de grasa / Greasy boxes</li>
+                                <li>❌ Briks (Van al amarillo)</li>
+                                <li>❌ Servilletas usadas / Tissues</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-blue-50 border-t-2 border-black text-xs font-bold text-center text-sky-900">
+                        <i class="fa-solid fa-recycle mr-1"></i> Nuevas Cajas y Papel
+                    </div>
+                </div>
+
+                <!-- 04. VERDE / GREEN -->
+                <div class="comic-card bg-white rounded-xl overflow-hidden flex flex-col justify-between" style="border-top: 14px solid #168345;">
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-oswald text-xs font-bold px-2 py-1 rounded text-white" style="background-color: #168345;">04. VERDE / GREEN</span>
+                            <i class="fa-solid fa-wine-bottle text-2xl" style="color: #168345;"></i>
+                        </div>
+                        <h3 class="font-oswald text-2xl font-black uppercase mb-0.5" style="color: #168345;">Vidrio</h3>
+                        <span class="text-xs font-bold text-gray-500 uppercase block mb-2">Glass Containers</span>
+                        <p class="text-xs text-gray-700 font-bold mb-4 italic bg-emerald-50 p-1.5 rounded border border-emerald-200">"Botellas y frascos / Bottles"</p>
+
+                        <div class="mb-4">
+                            <h4 class="text-xs font-bold uppercase tracking-wide bg-gray-100 p-1.5 border-medium border-black mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-check text-green-600"></i> Permitido / Accepted
+                            </h4>
+                            <ul class="text-xs font-medium space-y-1 pl-1 text-gray-800">
+                                <li>• Botellas vidrio / Glass bottles</li>
+                                <li>• Frascos perfume / Jars & bottles</li>
+                                <li>• Tarros conserva / Food jars</li>
+                                <li>• Botellas vino/cerveza / Wine & beer</li>
+                                <li>• Tarros mermelada / Jam jars</li>
+                                <li>• Frascos colonia / Cologne bottles</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-3">
+                            <h4 class="text-xs font-bold uppercase tracking-wide bg-red-50 p-1.5 border-medium border-black mb-2 text-red-700 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-xmark"></i> No tirar / Avoid
+                            </h4>
+                            <ul class="text-xs text-gray-700 space-y-1 pl-1">
+                                <li>❌ Vasos, copas, platos / Glasses, cups</li>
+                                <li>❌ Espejos, cerámica / Ceramic</li>
+                                <li>❌ Bombillas / Light bulbs</li>
+                                <li>❌ Tapones o corchos / Lids</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-emerald-50 border-t-2 border-black text-xs font-bold text-center text-emerald-900">
+                        <i class="fa-solid fa-recycle mr-1"></i> 100% Reciclable Infinito
+                    </div>
+                </div>
+
+                <!-- 05. GRIS / GREY -->
+                <div class="comic-card bg-white rounded-xl overflow-hidden flex flex-col justify-between" style="border-top: 14px solid #777777;">
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-oswald text-xs font-bold px-2 py-1 rounded text-white" style="background-color: #777777;">05. GRIS / GREY</span>
+                            <i class="fa-solid fa-trash-can text-2xl text-gray-600"></i>
+                        </div>
+                        <h3 class="font-oswald text-2xl font-black uppercase mb-0.5 text-gray-800">Rechazo</h3>
+                        <span class="text-xs font-bold text-gray-500 uppercase block mb-2">General Waste</span>
+                        <p class="text-xs text-gray-700 font-bold mb-4 italic bg-gray-100 p-1.5 rounded border border-gray-300">"Restos no reciclables / Resto"</p>
+
+                        <div class="mb-4">
+                            <h4 class="text-xs font-bold uppercase tracking-wide bg-gray-100 p-1.5 border-medium border-black mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-check text-green-600"></i> Permitido / Accepted
+                            </h4>
+                            <ul class="text-xs font-medium space-y-1 pl-1 text-gray-800">
+                                <li>• Colillas / Cigarette butts</li>
+                                <li>• Restos de barrer / Sweepings</li>
+                                <li>• Bastoncillos, algodón / Cotton</li>
+                                <li>• Bolígrafos / Pens & stationery</li>
+                                <li>• Toallitas húmedas / Wet wipes</li>
+                                <li>• Cepillos dientes / Toothbrushes</li>
+                                <li>• Chicles, tickets / Gum, receipts</li>
+                                <li>• Arena de gato / Cat litter</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-3">
+                            <h4 class="text-xs font-bold uppercase tracking-wide bg-red-50 p-1.5 border-medium border-black mb-2 text-red-700 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-xmark"></i> No tirar / Avoid
+                            </h4>
+                            <ul class="text-xs text-gray-700 space-y-1 pl-1">
+                                <li>❌ Materiales reciclables / Recyclables</li>
+                                <li>❌ Pilas, baterías / Batteries</li>
+                                <li>❌ Electrónica / Electronics</li>
+                                <li>❌ Medicamentos / Medicines</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-gray-100 border-t-2 border-black text-xs font-bold text-center text-gray-800">
+                        <i class="fa-solid fa-dumpster mr-1"></i> Vertedero o Incineración
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: SPECIAL RECYCLING & PUNTO VERDE -->
+        <section id="punto-verde" class="bg-amber-100 border-thick p-6 md:p-8 rounded-2xl shadow-comic">
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                <div>
+                    <span class="bg-black text-white px-2.5 py-1 text-xs font-bold uppercase font-oswald tracking-widest border-medium border-black">
+                        Sección 02
+                    </span>
+                    <h2 class="font-oswald text-3xl md:text-4xl font-black uppercase mt-1">Punto Verde & Recogida Especial</h2>
+                    <p class="text-xs md:text-sm font-bold text-gray-700">Residuos peligrosos o especiales que NUNCA van a los contenedores de la calle</p>
+                </div>
+                <div class="bg-white border-medium border-black p-3 rounded-xl shadow-comic-sm font-bold text-xs flex items-center gap-2">
+                    <i class="fa-solid fa-location-dot text-red-600 text-2xl"></i>
+                    <div>
+                        <p class="font-oswald uppercase text-sm">Punto Verde Barcelona</p>
+                        <p class="text-gray-600">Consulta el punto móvil o fijo más cercano</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Special 1: Pilas -->
+                <div class="bg-white p-4 rounded-xl border-medium border-black shadow-comic-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-2xl">🔋</span>
+                            <span class="bg-yellow-300 text-black px-2 py-0.5 text-xs font-bold uppercase rounded border-medium border-black font-oswald">Contenedor Especial</span>
+                        </div>
+                        <h3 class="font-oswald text-xl font-bold uppercase">Pilas y Baterías</h3>
+                        <p class="text-xs text-gray-600 font-medium mb-3">Batteries & Power banks</p>
+                        <p class="text-xs font-medium text-gray-800 bg-amber-50 p-2 rounded border border-amber-200">
+                            Deposítalas en las cajas de pilas de la recepción de la residencia o en marquesinas de autobús / supermercados.
+                        </p>
+                    </div>
+                    <span class="mt-3 block text-center text-xs font-bold bg-black text-white py-1 rounded">⚠️ Alta Toxicidad</span>
+                </div>
+
+                <!-- Special 2: Medicamentos -->
+                <div class="bg-white p-4 rounded-xl border-medium border-black shadow-comic-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-2xl">💊</span>
+                            <span class="bg-emerald-300 text-black px-2 py-0.5 text-xs font-bold uppercase rounded border-medium border-black font-oswald">Punto SIGRE</span>
+                        </div>
+                        <h3 class="font-oswald text-xl font-bold uppercase">Medicamentos</h3>
+                        <p class="text-xs text-gray-600 font-medium mb-3">Expired Medicines & Blisters</p>
+                        <p class="text-xs font-medium text-gray-800 bg-emerald-50 p-2 rounded border border-emerald-200">
+                            Lleva medicamentos caducados y sus envases vacíos a cualquier Farmacia (Punto SIGRE).
+                        </p>
+                    </div>
+                    <span class="mt-3 block text-center text-xs font-bold bg-emerald-700 text-white py-1 rounded">🏥 Farmacias</span>
+                </div>
+
+                <!-- Special 3: Ropa y Calzado -->
+                <div class="bg-white p-4 rounded-xl border-medium border-black shadow-comic-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-2xl">👕</span>
+                            <span class="bg-rose-300 text-black px-2 py-0.5 text-xs font-bold uppercase rounded border-medium border-black font-oswald">Ropa / Textiles</span>
+                        </div>
+                        <h3 class="font-oswald text-xl font-bold uppercase">Ropa y Calzado</h3>
+                        <p class="text-xs text-gray-600 font-medium mb-3">Clothes, Shoes & Fabrics</p>
+                        <p class="text-xs font-medium text-gray-800 bg-rose-50 p-2 rounded border border-rose-200">
+                            Contenedores naranjas/rojos (Roba Amiga) o donación en la recepción de la residencia al final de curso.
+                        </p>
+                    </div>
+                    <span class="mt-3 block text-center text-xs font-bold bg-rose-700 text-white py-1 rounded">♻️ Roba Amiga</span>
+                </div>
+
+                <!-- Special 4: Electrónica y Bombillas -->
+                <div class="bg-white p-4 rounded-xl border-medium border-black shadow-comic-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-2xl">💡</span>
+                            <span class="bg-sky-300 text-black px-2 py-0.5 text-xs font-bold uppercase rounded border-medium border-black font-oswald">Punto Verde</span>
+                        </div>
+                        <h3 class="font-oswald text-xl font-bold uppercase">Aparatos y Bombillas</h3>
+                        <p class="text-xs text-gray-600 font-medium mb-3">Small Electronics & Bulbs</p>
+                        <p class="text-xs font-medium text-gray-800 bg-sky-50 p-2 rounded border border-sky-200">
+                            Cargadores rotos, secadores, bombillas y cables van directamente al Punto Verde Móvil o Fijo.
+                        </p>
+                    </div>
+                    <span class="mt-3 block text-center text-xs font-bold bg-sky-700 text-white py-1 rounded">📍 Punto Verde</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: INTERACTIVE QUIZ GAME -->
+        <section id="quiz-section" class="bg-white border-thick p-6 md:p-8 rounded-2xl shadow-comic">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 border-b-2 border-black pb-4">
+                <div>
+                    <span class="bg-black text-white px-2.5 py-1 text-xs font-bold uppercase font-oswald tracking-widest border-medium border-black">
+                        Sección 03: Interactive Game
+                    </span>
+                    <h2 class="font-oswald text-3xl md:text-4xl font-black uppercase mt-1">¿Dónde va este residuo? / Waste Quiz</h2>
+                    <p class="text-xs md:text-sm font-bold text-gray-700">Demuestra tus conocimientos de separación para la Eco-Residencia</p>
+                </div>
+                <!-- Score Display -->
+                <div class="flex items-center gap-4 bg-beige p-3 rounded-xl border-medium border-black shadow-comic-sm">
+                    <div class="text-center">
+                        <span class="text-xs uppercase font-bold text-gray-600 block">Puntuación / Score</span>
+                        <span id="quiz-score" class="font-oswald text-3xl font-black text-black">0 / 0</span>
+                    </div>
+                    <button onclick="resetQuiz()" class="btn-comic bg-black text-white px-3 py-1.5 rounded text-xs uppercase font-oswald hover:bg-gray-800">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> Reiniciar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Question Card -->
+            <div id="quiz-card" class="bg-slate-50 border-medium border-black p-6 rounded-xl max-w-3xl mx-auto shadow-comic-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <span id="quiz-step" class="font-oswald text-sm font-bold bg-black text-white px-3 py-1 rounded">Pregunta 1 de 6</span>
+                    <span id="quiz-badge" class="text-xs font-bold bg-amber-200 px-2.5 py-1 rounded border-medium border-black">Desafío Diario</span>
+                </div>
+
+                <!-- Item Display -->
+                <div class="text-center py-6 bg-white border-medium border-black rounded-xl mb-6 shadow-comic-sm">
+                    <div id="quiz-icon" class="text-6xl mb-2">🍕</div>
+                    <h3 id="quiz-item-title" class="font-oswald text-3xl font-black uppercase text-black">Caja de Pizza Manchada de Grasa</h3>
+                    <p id="quiz-item-desc" class="text-sm font-bold text-gray-600 mt-1">Greasy Pizza Box with cheese residues</p>
+                </div>
+
+                <!-- Bin Selection Buttons -->
+                <p class="text-xs font-bold uppercase tracking-wider text-center text-gray-700 mb-3">Elige el contenedor correcto / Choose the right bin:</p>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                    <button onclick="checkAnswer('marron')" class="btn-comic bg-amber-800 text-white p-3 rounded-xl text-center flex flex-col items-center hover:opacity-90">
+                        <i class="fa-solid fa-apple-whole text-xl mb-1"></i>
+                        <span class="font-oswald text-xs uppercase">Marrón</span>
+                        <span class="text-[10px] opacity-80">Orgánica</span>
+                    </button>
+
+                    <button onclick="checkAnswer('amarillo')" class="btn-comic bg-yellow-400 text-black p-3 rounded-xl text-center flex flex-col items-center hover:opacity-90">
+                        <i class="fa-solid fa-bottle-water text-xl mb-1"></i>
+                        <span class="font-oswald text-xs uppercase">Amarillo</span>
+                        <span class="text-[10px] opacity-80">Envases</span>
+                    </button>
+
+                    <button onclick="checkAnswer('azul')" class="btn-comic bg-sky-600 text-white p-3 rounded-xl text-center flex flex-col items-center hover:opacity-90">
+                        <i class="fa-solid fa-box-open text-xl mb-1"></i>
+                        <span class="font-oswald text-xs uppercase">Azul</span>
+                        <span class="text-[10px] opacity-80">Papel / Cartón</span>
+                    </button>
+
+                    <button onclick="checkAnswer('verde')" class="btn-comic bg-emerald-700 text-white p-3 rounded-xl text-center flex flex-col items-center hover:opacity-90">
+                        <i class="fa-solid fa-wine-bottle text-xl mb-1"></i>
+                        <span class="font-oswald text-xs uppercase">Verde</span>
+                        <span class="text-[10px] opacity-80">Vidrio</span>
+                    </button>
+
+                    <button onclick="checkAnswer('gris')" class="btn-comic bg-gray-600 text-white p-3 rounded-xl text-center flex flex-col items-center hover:opacity-90 col-span-2 sm:col-span-1">
+                        <i class="fa-solid fa-trash-can text-xl mb-1"></i>
+                        <span class="font-oswald text-xs uppercase">Gris</span>
+                        <span class="text-[10px] opacity-80">Rechazo</span>
+                    </button>
+                </div>
+
+                <!-- Feedback Message -->
+                <div id="quiz-feedback" class="hidden mt-6 p-4 rounded-xl border-medium border-black font-bold text-sm text-center">
+                    <!-- Dynamic feedback injected here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white border-t-4 border-black py-8 px-4 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left">
+                <h3 class="font-oswald text-2xl font-black uppercase text-yellow-400">Eco-Residencia Estudiantil Barcelona</h3>
+                <p class="text-xs text-gray-400 mt-1 max-w-md">
+                    Guía didáctica de civismo urbano y separación de residuos. Promoviendo el desarrollo sostenible y la economía circular en la comunidad universitaria.
+                </p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-3 text-xs font-bold">
+                <span class="bg-gray-800 px-3 py-1.5 rounded border border-gray-700"><i class="fa-solid fa-recycle text-green-400 mr-1"></i> Residu Zero</span>
+                <span class="bg-gray-800 px-3 py-1.5 rounded border border-gray-700"><i class="fa-solid fa-heart text-red-400 mr-1"></i> Barcelona Neta</span>
+                <span class="bg-gray-800 px-3 py-1.5 rounded border border-gray-700"><i class="fa-solid fa-graduation-cap text-sky-400 mr-1"></i> Eco-Habits</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // DATA BASE OF RESIDENCE ITEMS FOR LIVE SEARCH
+        const wasteDatabase = [
+            // Organic
+            { nameEs: 'Posos de café / Cápsulas compostables', nameEn: 'Coffee grounds & compostable pods', bin: 'marron', binName: 'Marrón / Brown', icon: '☕', desc: 'Residuo orgánico biodegradable ideal para generar compost.' },
+            { nameEs: 'Restos de fruta, verduras y comida', nameEn: 'Fruit peels, veggies & leftovers', bin: 'marron', binName: 'Marrón / Brown', icon: '🍎', desc: 'Todo resto de alimento cocinado o crudo va al contenedor marrón.' },
+            { nameEs: 'Cáscaras de huevo y marisco', nameEn: 'Eggshells & seafood shells', bin: 'marron', binName: 'Marrón / Brown', icon: '🥚', desc: 'Residuos orgánicos duros pero totalmente compostables.' },
+            { nameEs: 'Papel de cocina usado y servilletas sucias', nameEn: 'Used kitchen paper & napkins', bin: 'marron', binName: 'Marrón / Brown', icon: '🧻', desc: 'Si está manchado de comida o grasa de cocina, va a la orgánica.' },
+            { nameEs: 'Tapones de corcho natural', nameEn: 'Natural corks', bin: 'marron', binName: 'Marrón / Brown', icon: '🍾', desc: 'El corcho natural es madera/materia orgánica reutilizable.' },
+
+            // Yellow (Envases)
+            { nameEs: 'Botellas de agua y refresco de plástico', nameEn: 'Plastic water & soda bottles', bin: 'amarillo', binName: 'Amarillo / Yellow', icon: '🧴', desc: 'Asegúrate de aplastarlas para reducir espacio antes de tirar.' },
+            { nameEs: 'Latas de aluminio y conservas', nameEn: 'Soda cans & tin cans', bin: 'amarillo', binName: 'Amarillo / Yellow', icon: '🥤', desc: 'Latas de cerveza, refrescos, atún y conservas metálicas.' },
+            { nameEs: 'Briks de leche, zumo o caldo', nameEn: 'Milk & juice cartons (Briks)', bin: 'amarillo', binName: 'Amarillo / Yellow', icon: '🧃', desc: 'Los briks no son cartón puro, contienen plástico y aluminio.' },
+            { nameEs: 'Tarrinas de yogurt y envoltorios', nameEn: 'Yogurt pots & plastic wrappers', bin: 'amarillo', binName: 'Amarillo / Yellow', icon: '🥣', desc: 'Envases de plástico de productos lácteos o snacks.' },
+            { nameEs: 'Papel de aluminio y film transparente', nameEn: 'Aluminium foil & cling film', bin: 'amarillo', binName: 'Amarillo / Yellow', icon: '🧻', desc: 'Envoltorios de bocadillos y cocina de plástico o aluminio.' },
+            { nameEs: 'Bandejas de porexpán / corcho blanco', nameEn: 'Styrofoam trays', bin: 'amarillo', binName: 'Amarillo / Yellow', icon: '📦', desc: 'Bandejas de plástico expandido para carne o verdura.' },
+
+            // Blue (Papel / Cartón)
+            { nameEs: 'Cajas de cartón (de Amazon o paquetes)', nameEn: 'Cardboard shipping boxes', bin: 'azul', binName: 'Azul / Blue', icon: '📦', desc: 'Pliégalas completamente antes de introducirlas en el contenedor.' },
+            { nameEs: 'Periódicos, revistas y folios', nameEn: 'Newspapers, magazines & paper', bin: 'azul', binName: 'Azul / Blue', icon: '📰', desc: 'Papel limpio de apuntes, sobres y publicaciones.' },
+            { nameEs: 'Hueveras de cartón y tubos higiénicos', nameEn: 'Egg cartons & toilet paper tubes', bin: 'azul', binName: 'Azul / Blue', icon: '🧻', desc: 'Cartón limpio sin restos orgánicos pegados.' },
+            { nameEs: 'Cajas de cereales y galletas', nameEn: 'Cereal & biscuit boxes', bin: 'azul', binName: 'Azul / Blue', icon: '🥣', desc: 'Envases secundarios de cartón fino.' },
+
+            // Green (Vidrio)
+            { nameEs: 'Botellas de vino, cerveza y agua de vidrio', nameEn: 'Glass wine, beer & water bottles', bin: 'verde', binName: 'Verde / Green', icon: '🍾', desc: 'Retira los tapones de plástico o corcho antes de tirarlas.' },
+            { nameEs: 'Tarros de cristal de mermelada y salsas', nameEn: 'Glass jam & sauce jars', bin: 'verde', binName: 'Verde / Green', icon: '🫙', desc: 'Tarros de conserva de vidrio 100% reciclables.' },
+            { nameEs: 'Frascos de colonia y perfume', nameEn: 'Perfume & cologne glass bottles', bin: 'verde', binName: 'Verde / Green', icon: '🧴', desc: 'Frascos de vidrio de cosmética vacíos.' },
+
+            // Grey (Rechazo)
+            { nameEs: 'Caja de pizza manchada de grasa', nameEn: 'Greasy pizza box', bin: 'gris', binName: 'Gris / Grey (o Orgánica si es compostable)', icon: '🍕', desc: 'Si está muy sucia de grasa/queso, no se puede reciclar con papel limpio.' },
+            { nameEs: 'Toallitas húmedas y bastoncillos', nameEn: 'Wet wipes & cotton buds', bin: 'gris', binName: 'Gris / Grey', icon: '🧼', desc: '¡NUNCA las tires al w.c.! Van al contenedor de rechazo.' },
+            { nameEs: 'Colillas de cigarrillos apagadas', nameEn: 'Cigarette butts', bin: 'gris', binName: 'Gris / Grey', icon: '🚬', desc: 'Asegúrate de que estén bien apagadas.' },
+            { nameEs: 'Cepillos de dientes y maquinillas', nameEn: 'Toothbrushes & razors', bin: 'gris', binName: 'Gris / Grey', icon: '🪥', desc: 'Plásticos no envase compuestas por mezcla de materiales.' },
+            { nameEs: 'Cápsulas de café de plástico / aluminio no compostables', nameEn: 'Non-compostable coffee pods', bin: 'gris', binName: 'Gris / Grey (o Punto Limpio)', icon: '☕', desc: 'Van a rechazo o al punto de recogida de la marca/residencia.' },
+
+            // Punto Verde / Special
+            { nameEs: 'Pilas y baterías usadas', nameEn: 'Used batteries', bin: 'especial', binName: 'Punto Verde / Recepción', icon: '🔋', desc: 'Especialmente tóxicas. Llévalas al contenedor de pilas de recepción.' },
+            { nameEs: 'Medicamentos caducados y blísteres', nameEn: 'Expired medicines & packaging', bin: 'especial', binName: 'Punto SIGRE (Farmacia)', icon: '💊', desc: 'Deposítalos en el punto SIGRE de cualquier farmacia.' },
+            { nameEs: 'Bombillas y fluorescentes', nameEn: 'Light bulbs', bin: 'especial', binName: 'Punto Verde Móvil', icon: '💡', desc: 'Contienen metales pesados. Requieren tratamiento especial.' }
+        ];
+
+        // QUIZ QUESTIONS DATA
+        const quizQuestions = [
+            {
+                icon: '🍕',
+                titleEs: 'Caja de Pizza Manchada de Grasa',
+                titleEn: 'Greasy Pizza Box',
+                descEs: 'Contiene aceite y restos de queso pegados.',
+                descEn: 'Soaked with oil and melted cheese.',
+                correctBin: 'gris',
+                explanationEs: '¡Correcto! El cartón grasiento o sucio de comida no se puede reciclar en el contenedor azul porque arruina la pasta de papel. Va a rechazo (gris) o marrón si la residencia usa compostaje industrial.',
+                explanationEn: 'Correct! Greasy paper cannot be recycled with clean paper in the blue bin because it ruins the pulp.'
+            },
+            {
+                icon: '🧃',
+                titleEs: 'Brik de Leche o Zumo',
+                titleEn: 'Milk or Juice Carton',
+                descEs: 'Envase multi-capa de cartón, plástico y aluminio.',
+                descEn: 'Multi-layer packaging made of cardboard, plastic & foil.',
+                correctBin: 'amarillo',
+                explanationEs: '¡Muy bien! Los briks SIEMPRE van al contenedor AMARILLO, no al azul, porque se separan sus capas plásticas y metálicas en planta.',
+                explanationEn: 'Great! Cartons ALWAYS go to the YELLOW bin so their plastic and metal layers can be separated.'
+            },
+            {
+                icon: '☕',
+                titleEs: 'Posos de Café del Filtro',
+                titleEn: 'Used Coffee Grounds',
+                descEs: 'Resto orgánico tras preparar café por goteo o cafetera italiana.',
+                descEn: 'Organic coffee residue after brewing.',
+                correctBin: 'marron',
+                explanationEs: '¡Excelente! Los posos de café son 100% materia orgánica y van al contenedor MARRÓN para transformarse en compost.',
+                explanationEn: 'Excellent! Coffee grounds are 100% organic waste and belong in the BROWN bin.'
+            },
+            {
+                icon: '🥛',
+                titleEs: 'Vaso de Cristal Roto',
+                titleEn: 'Broken Drinking Glass',
+                descEs: 'Vaso de mesa roto durante una cena.',
+                descEn: 'Broken glass cup from the kitchen.',
+                correctBin: 'gris',
+                explanationEs: '¡Atención! Los vasos y copas de cristal contienen óxido de plomo y NO van al contenedor verde (solo para botellas/tarros de vidrio). Van al GRIS o Punto Verde.',
+                explanationEn: 'Attention! Drinking glasses contain lead crystal and do NOT go into the green bin. Put them in GREY.'
+            },
+            {
+                icon: '📰',
+                titleEs: 'Apuntes e Impresiones de Universidad',
+                titleEn: 'Printed University Notes',
+                descEs: 'Hojas de papel y folios usados limpios.',
+                descEn: 'Clean printed paper sheets and notebook pages.',
+                correctBin: 'azul',
+                explanationEs: '¡Correcto! El papel y cartón limpios van al contenedor AZUL para fabricar nuevo papel reciclado.',
+                explanationEn: 'Correct! Clean paper belongs in the BLUE bin to produce new recycled paper products.'
+            },
+            {
+                icon: '🔋',
+                titleEs: 'Pilas de Mando a Distancia',
+                titleEn: 'AA / AAA Remote Batteries',
+                descEs: 'Pilas gastadas de dispositivos electrónicos.',
+                descEn: 'Depleted batteries from household gadgets.',
+                correctBin: 'gris', // Acceptable fallback in simplified choices, but feedback clarifies special container
+                explanationEs: 'Las pilas nunca deben ir a la basura común. Llévalas al contenedor especial de pilas en Recepción o en marquesinas.',
+                explanationEn: 'Batteries should never go to regular trash! Take them to the battery collection point at Reception.'
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let score = 0;
+        let currentLang = 'es';
+
+        // LANGUAGE TOGGLE FUNCTION
+        function setLanguage(lang) {
+            currentLang = lang;
+            const btnEs = document.getElementById('lang-es');
+            const btnEn = document.getElementById('lang-en');
+
+            if (lang === 'es') {
+                btnEs.className = "px-3 py-1 text-xs font-black uppercase rounded bg-black text-white transition-all";
+                btnEn.className = "px-3 py-1 text-xs font-black uppercase rounded text-black transition-all";
+                document.getElementById('hero-subtitle').innerText = "Barcelona: Separar correctamente para recuperar materiales y reducir el impacto ambiental";
+                document.getElementById('mascot-speech').innerText = "¡Separa en origen antes de tirar! Así garantizamos una Barcelona más limpia y sostenible.";
+                document.getElementById('search-label').innerText = "¿Dónde tirarlo?";
+                document.getElementById('search-input').placeholder = "Escribe un residuo: ej. café, lata, brik, bombilla, medicamentos, caja, pizza...";
+            } else {
+                btnEn.className = "px-3 py-1 text-xs font-black uppercase rounded bg-black text-white transition-all";
+                btnEs.className = "px-3 py-1 text-xs font-black uppercase rounded text-black transition-all";
+                document.getElementById('hero-subtitle').innerText = "Barcelona: Separate waste accurately to recycle resources and protect the environment";
+                document.getElementById('mascot-speech').innerText = "Sorting waste at home is super easy! Help us keep Barcelona green and clean.";
+                document.getElementById('search-label').innerText = "Where to throw it?";
+                document.getElementById('search-input').placeholder = "Search waste item: e.g., coffee, bottle, can, battery, box, pizza...";
+            }
+
+            renderQuizQuestion();
+        }
+
+        // LIVE SEARCH LOGIC
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const resultsSection = document.getElementById('search-results-section');
+            const resultsGrid = document.getElementById('results-grid');
+            const clearBtn = document.getElementById('clear-search');
+
+            if (query.length === 0) {
+                resultsSection.classList.add('hidden');
+                clearBtn.classList.add('hidden');
+                return;
+            }
+
+            clearBtn.classList.remove('hidden');
+            resultsSection.classList.remove('hidden');
+
+            const filtered = wasteDatabase.filter(item => 
+                item.nameEs.toLowerCase().includes(query) || 
+                item.nameEn.toLowerCase().includes(query) ||
+                item.desc.toLowerCase().includes(query)
+            );
+
+            if (filtered.length === 0) {
+                resultsGrid.innerHTML = `
+                    <div class="col-span-full text-center py-8 bg-amber-50 rounded-xl border-medium border-black p-4">
+                        <i class="fa-solid fa-circle-question text-4xl text-amber-600 mb-2"></i>
+                        <p class="font-oswald text-xl font-bold uppercase">No encontramos "${query}"</p>
+                        <p class="text-xs text-gray-600 mt-1">Ante la duda, consulta con el personal de la residencia o llévalo a la fracción de rechazo (Gris).</p>
+                    </div>
+                `;
+                return;
+            }
+
+            resultsGrid.innerHTML = filtered.map(item => {
+                let binColorClass = 'bg-gray-100 text-gray-800 border-gray-400';
+                if (item.bin === 'marron') binColorClass = 'bg-amber-800 text-white border-black';
+                if (item.bin === 'amarillo') binColorClass = 'bg-yellow-400 text-black border-black';
+                if (item.bin === 'azul') binColorClass = 'bg-sky-600 text-white border-black';
+                if (item.bin === 'verde') binColorClass = 'bg-emerald-700 text-white border-black';
+                if (item.bin === 'gris') binColorClass = 'bg-gray-600 text-white border-black';
+                if (item.bin === 'especial') binColorClass = 'bg-purple-700 text-white border-black';
+
+                return `
+                    <div class="bg-white p-4 rounded-xl border-medium border-black shadow-comic-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-3xl">${item.icon}</span>
+                                <span class="font-oswald text-xs font-bold px-2.5 py-1 rounded border-medium uppercase ${binColorClass}">
+                                    ${item.binName}
+                                </span>
+                            </div>
+                            <h4 class="font-oswald text-lg font-bold uppercase text-black mb-0.5">${item.nameEs}</h4>
+                            <p class="text-xs font-semibold text-gray-500 mb-2">${item.nameEn}</p>
+                            <p class="text-xs text-gray-700 bg-slate-50 p-2.5 rounded border border-gray-200">${item.desc}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function quickSearch(term) {
+            document.getElementById('search-input').value = term;
+            handleSearch();
+        }
+
+        function clearSearch() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('search-results-section').classList.add('hidden');
+            document.getElementById('clear-search').classList.add('hidden');
+        }
+
+        // QUIZ GAME LOGIC
+        function renderQuizQuestion() {
+            const q = quizQuestions[currentQuizIndex];
+            document.getElementById('quiz-step').innerText = `Pregunta ${currentQuizIndex + 1} de ${quizQuestions.length}`;
+            document.getElementById('quiz-icon').innerText = q.icon;
+            document.getElementById('quiz-item-title').innerText = currentLang === 'es' ? q.titleEs : q.titleEn;
+            document.getElementById('quiz-item-desc').innerText = currentLang === 'es' ? q.descEs : q.descEn;
+            
+            const feedbackBox = document.getElementById('quiz-feedback');
+            feedbackBox.classList.add('hidden');
+        }
+
+        function checkAnswer(selectedBin) {
+            const q = quizQuestions[currentQuizIndex];
+            const feedbackBox = document.getElementById('quiz-feedback');
+            feedbackBox.classList.remove('hidden');
+
+            const isCorrect = (selectedBin === q.correctBin) || (q.correctBin === 'gris' && selectedBin === 'gris');
+
+            if (isCorrect) {
+                score += 10;
+                feedbackBox.className = "mt-6 p-4 rounded-xl border-medium border-black font-bold text-sm text-center bg-emerald-100 text-emerald-900 shadow-comic-sm";
+                feedbackBox.innerHTML = `
+                    <div class="flex items-center justify-center gap-2 mb-1">
+                        <i class="fa-solid fa-circle-check text-2xl text-emerald-600"></i>
+                        <span class="font-oswald text-xl font-black uppercase">¡RESPUESTA CORRECTA!</span>
+                    </div>
+                    <p class="text-xs font-medium">${currentLang === 'es' ? q.explanationEs : q.explanationEn}</p>
+                    <button onclick="nextQuestion()" class="btn-comic mt-3 bg-black text-white px-4 py-1.5 rounded text-xs uppercase font-oswald">
+                        Siguiente Pregunta <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                `;
+            } else {
+                feedbackBox.className = "mt-6 p-4 rounded-xl border-medium border-black font-bold text-sm text-center bg-rose-100 text-rose-900 shadow-comic-sm";
+                feedbackBox.innerHTML = `
+                    <div class="flex items-center justify-center gap-2 mb-1">
+                        <i class="fa-solid fa-circle-xmark text-2xl text-rose-600"></i>
+                        <span class="font-oswald text-xl font-black uppercase">¡CASI! INTÉNTALO DE NUEVO</span>
+                    </div>
+                    <p class="text-xs font-medium">${currentLang === 'es' ? q.explanationEs : q.explanationEn}</p>
+                    <button onclick="nextQuestion()" class="btn-comic mt-3 bg-black text-white px-4 py-1.5 rounded text-xs uppercase font-oswald">
+                        Continuar <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                `;
+            }
+
+            document.getElementById('quiz-score').innerText = `${score} pts`;
+        }
+
+        function nextQuestion() {
+            currentQuizIndex = (currentQuizIndex + 1) % quizQuestions.length;
+            renderQuizQuestion();
+        }
+
+        function resetQuiz() {
+            currentQuizIndex = 0;
+            score = 0;
+            document.getElementById('quiz-score').innerText = "0 pts";
+            renderQuizQuestion();
+        }
+
+        // INIT ON LOAD
+        window.onload = function() {
+            renderQuizQuestion();
+        };
+    </script>
+</body>
+</html>
